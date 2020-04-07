@@ -8,14 +8,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7dd5b04b57.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
 
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Quicksand&display=swap" rel="stylesheet">
 
-    <script>
-        
-    </script>
 </head>
-<body>
-  <div class="container">
+<body class="background">
+
+  <div class="container centerScreen">
+
     <div class="row"> 
       <div class="col">
         <div class="card">
@@ -25,7 +28,7 @@
         </div>
       </div>
     </div>
-    <!--Code hier laten staan of alleen voor de admin?-->
+
     <div class="row">
       <div class="col">
         <div class="card">
@@ -35,39 +38,78 @@
         </div>
       </div>
     </div>
+
+    <!--Lijst van deelnemers-->
     <div class="row">
       <div class="col-5">
         <div class="card">
           <div class="card-body">
             <h2 class="card-title">Deelnemers</h2>
+
             <!--Tijdelijke lijst-->
             <ul>
-              <li>Speler 1</li>
-              <li>Speler 2</li>
-              <li>Speler 3</li>
+              <p>Speler 1</p>
+              <p>Speler 2</p>
+              <p>Speler 3</p>
             </ul> 
+
           </div>
         </div>
       </div>
+
       <div class="col-7">
         <div class="card">
           <div class="card-body">
-            <!--In dit scherm kan het niet bewerkt worden-->
             <h2 class="card-title">Instellingen</h2>
-            <p>Bedrag rebuys</p>
-            <p>Bedragen fiches</p>
+
+            <form method="POST">
+              <div class="form-group">
+                  <label for="startAmount">Startbedrag in euro's</label>
+                  <p>startAmount</p>
+              </div>
+
+              <div class="form-group">
+                <label for="rounds">Aantal rondes</label>
+                <p>rounds</p>
+              </div>
+              
+              <div class="row">
+                <div class="col-12">
+                  Waarde fiches
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-2">
+                  <div class="chip"></div>
+                  <p>whiteChip</p>
+                </div>
+
+                <div class="col-2">
+                  <div class="chip" id="red"></div>
+                  <p>redChip</p>
+                </div>
+
+                <div class="col-2">
+                  <div class="chip" id="green"></div>
+                  <p>greenChip</p>
+                </div>
+
+                <div class="col-2">
+                  <div class="chip" id="blue"></div>
+                  <p>blueChip</p>
+                </div>
+
+                <div class="col-2">
+                  <div class="chip" id="black"></div>
+                  <p>blackChip</p>
+                </div>
+              </div>
+            </form>          
           </div>
       </div>
     </div>
-  </div>
-</div>
-
-   <!--<div class="text-center">   
-        <input type="text" id="Invullen"><br>
-        <button type="button" id="Toevoegen">Voeg speler toe</button> 
-        <button type="button" id="Verwijderen">Verwijder speler</button> 
     </div>
-  </div>-->
-
+  </div>
 </body>
 </html>

@@ -14,17 +14,20 @@
         <!--Fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Quicksand&display=swap" rel="stylesheet"> 
     </head>
-    <body>
-        <div class="container home">
+    <body class="background">
+
+        <div class="container centerScreen">
+
             <div class="row">
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Welkom, [naam]!</h3>
+                            <h1 class="card-title">Welkom, [naam]!</h1>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <!--Skill level-->
                 <div class="col-4">
@@ -33,10 +36,10 @@
                             <div>
                                 <i class="fas fa-star"></i>
                             </div>
-                            <h3>Niveau</h3>
                         </div>
                     </div>
                 </div>
+
                 <!--Total amount of wins of a player-->
                 <div class="col-4">
                     <div class="card">
@@ -44,10 +47,10 @@
                             <div>
                                 <i class="fas fa-trophy"></i>
                             </div>
-                            <h3>Wins</h3>
                         </div>
                     </div>
                 </div>
+
                 <!--Total amount of money a player has won-->
                 <div class="col-4">
                     <div class="card">
@@ -55,17 +58,17 @@
                             <div>
                                 <i class="fas fa-coins"></i>
                             </div>
-                            <h3>Geld</h3>
                         </div>
                     </div>
                 </div>
             </div>
+            
             <div class="row">
                 <!--Join game-->
                 <div class="col-4">
                     <div class="card">
                         <div class="card-body">
-                            <h3>Meedoen</h3>
+                            <h3 class="card-title">Meedoen</h3>
                             <form method="POST">
                                 <div class="form-group">
                                     <label for="inputGameCode">Voer code in</label>
@@ -78,11 +81,12 @@
                         </div>
                     </div>
                 </div>
+
                 <!--Create game-->
                 <div class="col-8">
                     <div class="card">
                         <div class="card-body">
-                            <h3>Create</h3>
+                            <h3 class="card-title">Creëer spel</h3>
                             <form method="POST">
                                 <div class="form-group">
                                     <label for="inputGameName">Naam toernooi</label>
@@ -90,7 +94,7 @@
                                 </div>
                                 <!---Voeg extra opties toe zoals rebuy en waarde van fiches-->
                                 <div>
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="submit" class="btn btn-primary">Creëer</button>
                                 </div>
                             </form>
                         </div>
