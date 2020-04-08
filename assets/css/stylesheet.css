@@ -1,0 +1,122 @@
+/*ALGEMEEN*/
+.background {
+    background-color: rgb(40,80,88);
+}
+
+.centerScreen {
+    margin-top: 200px;
+}
+
+.card-title {
+    font-family: 'Quicksand', sans-serif;
+}
+
+h1.card-title {
+    font-size: 50px;
+}
+
+.btn {
+    background-color: RGB(39,79,87);
+    border: 0px;
+    color: RGB(255, 255, 255);
+}
+
+.btn:hover {
+    background-color: RGB(51,71,75);
+    color: RGB(255, 255, 255);
+}
+
+a {
+    color: RGB(39,79,87);
+}
+
+a:hover {
+    color: RGB(39,79,87);
+    text-decoration: underline; 
+}
+
+.textfields {
+    margin-top: 30px;
+}
+
+.textfields .form-control {
+    padding: 20px;
+    border: 2px solid RGB(218,218,218);
+}
+
+.fa-star, .fa-trophy, .fa-coins, .fa-crown, .fa-user {
+    font-size: 50px;
+    color: rgb(255, 255, 0);
+}
+
+/*INDEX & SIGNUP*/
+.getstarted {
+    margin-top: 200px;
+    width: 450px;
+    height: 550px;
+}
+
+.backgroundStart {
+    background-image: url(/assets/images/cards-1030852_1920.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.btn-getstarted{
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+#noAccount {
+    margin-top: 125px;
+}
+
+/*HOME*/
+.centerScreen .card {
+    margin-bottom: 20px;
+    
+}
+
+/*TOURNAMENT & TOURNAMENTADMIN*/
+
+.tournament {
+    margin-top: 200px;
+}
+
+/*Chips*/
+.chip {
+    height: 50px;
+    width: 50px;
+    background-color: rgb(255, 255, 255);
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 50px;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.chip#red {
+    background-color: rgb(230, 35, 25);
+}
+
+.chip#green {
+    background-color: rgb(8, 158, 75);
+}
+
+.chip#blue {
+    background-color: rgb(33,54,107);
+}
+
+.chip#black {
+    background-color: rgb(0, 0, 0);
+}
+
+.inputNumber {
+    margin-bottom: 15px;
+}
+
+/*EINDSCHERM*/
+
+
