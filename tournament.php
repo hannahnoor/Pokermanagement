@@ -23,7 +23,7 @@
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h1 class="card-title">[Naam toernooi]</h1> 
+            <h1 class="card-title"><?= $_SESSION['tour_name'] ?></h1>
           </div>
         </div>
       </div>

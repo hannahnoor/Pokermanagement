@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Gegenereerd op: 07 apr 2020 om 21:01
+-- Gegenereerd op: 08 apr 2020 om 19:18
 -- Serverversie: 8.0.19
 -- PHP-versie: 7.2.19
 
@@ -89,17 +89,17 @@ CREATE TABLE IF NOT EXISTS `tournament` (
   `game_code` varchar(255) COLLATE latin1_general_ci NOT NULL,
   `tournament_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
   `admin` int NOT NULL,
-  `start_amount` int NOT NULL,
-  `max_rounds` int NOT NULL,
-  `chip_white` int NOT NULL,
-  `chip_red` int NOT NULL,
-  `chip_green` int NOT NULL,
-  `chip_blue` int NOT NULL,
-  `chip_black` int NOT NULL,
+  `start_amount` int DEFAULT NULL,
+  `max_rounds` int DEFAULT NULL,
+  `chip_white` int DEFAULT NULL,
+  `chip_red` int DEFAULT NULL,
+  `chip_green` int DEFAULT NULL,
+  `chip_blue` int DEFAULT NULL,
+  `chip_black` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `game_code` (`game_code`),
   KEY `tournament_admin` (`admin`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
 
@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Email` (`Email`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
 -- Beperkingen voor geëxporteerde tabellen

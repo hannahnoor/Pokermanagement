@@ -1,3 +1,61 @@
+<?php
+// Gebruiker moet een spel kunnen joinen met een spelcode die wordt aangemaakt bij het creëren van een spel.
+function joinGame($conn) {
+    $inputGameCode = $_POST['inputGameCode'];
+
+ // Check if code exists in Database
+    $checkCode = $conn->prepare('SELECT * FROM tournament WHERE game_code = :code');
+    $checkCode->bindParam('code', $inputGameCode);
+    $checkCode->execute();
+    $join = $checkCode->fetch();
+
+    if($join) {
+        $_SESSION['tour_id'] = $join['id'];
+        $_SESSION['tour_name'] = $join['tournament_name'];
+
+        header('Location: tournament.php');
+        die();
+    }
+}
+
+// Gebruiker moet een spel kunnen creëren door het een naam te geven. Hij wordt ook gelijk admin van het spel en er wordt een code gegenereerd.
+function startGame($conn) {
+    //Check if user has chosen a name
+    if (empty($_POST['inputGameName']))
+    {
+        return;
+    };
+
+    $gameName = $_POST['inputGameName'];
+
+
+    //Generate gameCode
+    $gameCode = base64_encode($gameName . '_#$_');
+
+    $userID = 1; // TODO: VERANDER NAAR ID VAN INGELOGDE GEBRUIKER!!!!!!
+
+    //Insert game into database
+    $addTour = $conn->prepare("INSERT INTO tournament (game_code, tournament_name, admin) VALUES (:gameCode, :gameName, :admin)");
+    $addTour->bindParam(":gameCode", $gameCode);
+    $addTour->bindParam(":gameName", $gameName);
+    $addTour->bindParam(":admin", $userID);
+
+
+    if($addTour->execute()) {
+        $_SESSION['tour_name'] = $gameName;
+
+        header('Location: tournamentadmin.php');
+        die();
+    }
+
+}
+
+include_once('connectDB.php');
+joinGame($conn);
+startGame($conn);
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,7 +80,7 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="card-title">Welkom, [naam]!</h1>
+                            <h1 class="card-title">Welkom, <?= $_SESSION['#'] ?>!</h1>
                         </div>
                     </div>
                 </div>
@@ -72,7 +130,7 @@
                             <form method="POST">
                                 <div class="form-group">
                                     <label for="inputGameCode">Voer code in</label>
-                                    <input type="text" class="form-control" id="inputGameCode"/>
+                                    <input type="text" name="inputGameCode" class="form-control" id="inputGameCode"/>
                                 </div>
                                 <div>
                                     <button type="submit" class="btn btn-primary">Doe mee</button>
@@ -90,7 +148,7 @@
                             <form method="POST">
                                 <div class="form-group">
                                     <label for="inputGameName">Naam toernooi</label>
-                                    <input type="text" class="form-control" id="inputGameName"/>
+                                    <input type="text" name="inputGameName" class="form-control" id="inputGameName"/>
                                 </div>
                                 <!---Voeg extra opties toe zoals rebuy en waarde van fiches-->
                                 <div>
