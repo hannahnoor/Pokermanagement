@@ -1,3 +1,69 @@
+<?php
+// TODO: Straks misschien linken aan apart document
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+function setTournament() {
+    // Check if all fields are filled
+    if (empty($_POST['startAmount']) || empty($_POST['rounds']) || empty($_POST['whiteChip']) || empty($_POST['redChip']) || empty($_POST['greenChip']) || empty($_POST['blueChip']) || empty($_POST['blackChip']))
+    {
+        return;
+    };
+
+    require_once('connectDB.php');
+
+    // TODO: Hij maakt nu een apart toernooi aan voor alleen deze waarden, hoe krijg ik dit bij de goede? (Misschien  met WHERE (nee dus reeeeeee))
+    $inputStartAmount = $_POST['startAmount'];
+    $inputRoundAmount = $_POST['rounds'];
+    $valueWhiteChip = $_POST['whiteChip'];
+    $valueRedChip = $_POST['redChip'];
+    $valueGreenChip = $_POST['greenChip'];
+    $valueBlueChip = $_POST['blueChip'];
+    $valueBlackChip = $_POST['blackChip'];
+    $tourID = 18; // $_SESSION['tour_id']; // TODO: aanpassen
+
+    $addSettings = $conn->prepare("UPDATE tournament SET start_amount = :startAmount, max_rounds = :maxRounds, chip_white = :valueWhite, chip_red = :valueRed, chip_green = :valueGreen, chip_blue = :valueBlue, chip_black = :valueBlack WHERE id = :id");
+
+    $addSettings->bindParam(":startAmount", $inputStartAmount);
+    $addSettings->bindParam(":maxRounds", $inputRoundAmount);
+    $addSettings->bindParam(":valueWhite", $valueWhiteChip);
+    $addSettings->bindParam(":valueRed", $valueRedChip);
+    $addSettings->bindParam(":valueGreen", $valueGreenChip);
+    $addSettings->bindParam(":valueBlue", $valueBlueChip);
+    $addSettings->bindParam(":valueBlack", $valueBlackChip);
+    $addSettings->bindParam("id", $tourID);
+
+    if($addSettings->execute()) {
+        $_SESSION['startAmount'] = $inputStartAmount;
+        $_SESSION['maxRounds'] = $inputRoundAmount;
+        $_SESSION['valueWhite'] = $valueWhiteChip;
+        $_SESSION['valueRed'] = $valueRedChip;
+        $_SESSION['valueGreen'] = $valueGreenChip;
+        $_SESSION['valueBlue'] = $valueBlueChip;
+        $_SESSION['valueBlack'] = $valueBlackChip;
+
+        // TODO: Set location to speelscherm
+        header('Location: #');
+        die();
+    }
+};
+
+function getPlayers() {
+    include ('connectDB.php');
+    $tourID = $_SESSION['tour_id'];
+    $playerID = $_POST['player_id'];
+
+    $getPlayers = $conn->prepare('SELECT * FROM participant WHERE player_id = :player_id ');
+    $getPlayers->bindParam(':player_id', $playerID);
+
+
+};
+
+setTournament();
+
+
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -33,7 +99,8 @@
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h2>[Code]</h2>
+              <!-- TODO: Zorgen dat game code wordt weergegeven -->
+            <h2><?= $_SESSION['tour_code'] ?></h2>
           </div>
         </div>
       </div>
@@ -108,7 +175,7 @@
 
               </div>
               <div>
-                <button class="btn" type="button" id="Starten">Start tournooi!</button> 
+                <button class="btn" type="submit" id="Starten">Start tournooi!</button>
               </div>
             </form>          
           </div>

@@ -1,7 +1,16 @@
 <?php
-// Gebruiker moet een spel kunnen joinen met een spelcode die wordt aangemaakt bij het creëren van een spel.
+// TODO: Straks misschien linken aan apart document
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 function joinGame($conn) {
+    if (empty($_POST['inputGameCode']))
+    {
+        return;
+    }
+
     $inputGameCode = $_POST['inputGameCode'];
+    $playerID = 1; // $_SESSION['id']; // TODO: Test
 
  // Check if code exists in Database
     $checkCode = $conn->prepare('SELECT * FROM tournament WHERE game_code = :code');
@@ -10,15 +19,23 @@ function joinGame($conn) {
     $join = $checkCode->fetch();
 
     if($join) {
-        $_SESSION['tour_id'] = $join['id'];
-        $_SESSION['tour_name'] = $join['tournament_name'];
 
-        header('Location: tournament.php');
+        $addToTour = $conn->prepare("INSERT INTO participant (player_id) VALUES (:playerID)");
+        $addToTour->bindParam(":playerID", $playerID);
+        if($addToTour->execute()){
+            $_SESSION['tour_id'] = $join['id'];
+            $_SESSION['tour_name'] = $join['tournament_name'];
+            $_SESSION['tour_code'] = $join['game_code'];
+            $_SESSION['player_name'] = $join['Name'];
+            $_SESSION['player_id'] = $join['player_id'];
+            $_SESSION['user_id'] = $join['id'];
+            header('Location: tournament.php');
+        };
+
         die();
     }
 }
 
-// Gebruiker moet een spel kunnen creëren door het een naam te geven. Hij wordt ook gelijk admin van het spel en er wordt een code gegenereerd.
 function startGame($conn) {
     //Check if user has chosen a name
     if (empty($_POST['inputGameName']))
@@ -29,10 +46,10 @@ function startGame($conn) {
     $gameName = $_POST['inputGameName'];
 
 
-    //Generate gameCode
+    // TODO: Make complexer game code
     $gameCode = base64_encode($gameName . '_#$_');
 
-    $userID = 1; // TODO: VERANDER NAAR ID VAN INGELOGDE GEBRUIKER!!!!!!
+    $userID = $userID = 1; // $_SESSION['id']; // TODO: Test
 
     //Insert game into database
     $addTour = $conn->prepare("INSERT INTO tournament (game_code, tournament_name, admin) VALUES (:gameCode, :gameName, :admin)");
@@ -43,6 +60,7 @@ function startGame($conn) {
 
     if($addTour->execute()) {
         $_SESSION['tour_name'] = $gameName;
+        // $_SESSION['tour_id'] = $addTour ['id']; TODO: Moet dit er nou wel in of niet?
 
         header('Location: tournamentadmin.php');
         die();
@@ -150,7 +168,6 @@ startGame($conn);
                                     <label for="inputGameName">Naam toernooi</label>
                                     <input type="text" name="inputGameName" class="form-control" id="inputGameName"/>
                                 </div>
-                                <!---Voeg extra opties toe zoals rebuy en waarde van fiches-->
                                 <div>
                                     <button type="submit" class="btn btn-primary">Creëer</button>
                                 </div>

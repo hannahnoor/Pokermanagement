@@ -1,3 +1,22 @@
+<?php
+// TODO: Straks misschien linken aan apart document
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+function getPlayers() {
+    include ('connectDB.php');
+    $tourID = $_SESSION['tour_id'];
+    $playerID = $_POST['player_id'];
+
+    $getPlayers = $conn->prepare('SELECT * FROM participant WHERE player_id = :player_id ');
+    $getPlayers->bindParam(':player_id', $playerID);
+
+
+};
+
+?>
+
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -33,7 +52,8 @@
       <div class="col">
         <div class="card">
           <div class="card-body">
-            <h2 class="card-title">[Code]</h2>
+              <!-- TODO: Zorgen dat gamecode wordt weergegeven -->
+            <h2 class="card-title"><?= $_SESSION['tour_code'] ?></h2>
           </div>
         </div>
       </div>
