@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d8c49676-abc3-45a3-b575-327d79198fb5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/home.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home.php~HEAD" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/home.php~master" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/poker_manager(2).sql~HEAD" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/poker_manager(2).sql~master" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tournament.php" beforeDir="false" afterPath="$PROJECT_DIR$/tournament.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tournament.php~HEAD" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tournament.php~master" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tournamentadmin.php" beforeDir="false" afterPath="$PROJECT_DIR$/tournamentadmin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tournamentadmin.php~HEAD" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tournamentadmin.php~master" beforeDir="false" />
-    </list>
+    <list default="true" id="d8c49676-abc3-45a3-b575-327d79198fb5" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
