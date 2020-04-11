@@ -1,3 +1,43 @@
+<?php
+// Check if session exists
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+function login() {
+
+    if (empty($_POST['inputEmail']) || empty($_POST['inputPassword']))
+    {
+        return;
+    };
+    include_once('connectDB.php');
+
+    $email = $_POST['inputEmail'];
+    $password = $_POST['inputPassword'];
+    var_dump($dbUsers);
+    // Check if email exists
+    $chkEmail = $conn->prepare('SELECT * FROM user WHERE Email = :email');
+    $chkEmail->bindParam(':email', $email);
+    $chkEmail->execute();
+    $dbUsers = $chkEmail->fetch();
+
+    if($chkEmail) {
+        if (!password_verify($password, $dbUsers['Password'])) {
+           // return;
+        }
+        var_dump('');
+        $_SESSION['id'] = $dbUsers['id'];
+        $_SESSION['name'] = $dbUsers['Name'];
+
+        header('Location: home.php');
+        die();
+    }
+
+}
+
+login();
+
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -26,16 +66,16 @@
                             <div class="textfields">
                                 <div class="form-group">
                                 <label for="inputEmail">E-mailadres</label>
-                                    <input type="email" class="form-control" id="inputEmail"/>
+                                    <input type="email" name="inputEmail" class="form-control" id="inputEmail"/>
                                 </div>
                                 <div class="form-group">
                                 <label for="inputPassword">Wachtwoord</label>
-                                    <input type="password" class="form-control" id="inputPassword"/>
+                                    <input type="password" name="inputPassword" class="form-control" id="inputPassword"/>
                                 </div>
                             </div>
                                 <div>
                                     <!--Add link-->
-                                    <button type="submit" class="btn btn-getstarted">Log in</button>
+                                    <button type="submit" name="login" class="btn btn-getstarted">Log in</button>
                                 </div>
                                 <div>
                                     <!--Add link + page-->
@@ -43,7 +83,7 @@
                                 </div>
                             
                             <div>
-                                <p class="text-center" id="noAccount">Nog geen account? <a href="signup.html">Registreer</a></p>
+                                <p class="text-center" id="noAccount">Nog geen account? <a href="signup.php">Registreer</a></p>
                             </div>
                         </form>
                     </div>

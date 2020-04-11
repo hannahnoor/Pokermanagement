@@ -1,8 +1,7 @@
 <?php
 // TODO: Straks misschien linken aan apart document
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+require_once 'checkLogin.php';
+
 function joinGame($conn) {
     if (empty($_POST['inputGameCode']))
     {
@@ -98,7 +97,7 @@ startGame($conn);
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="card-title">Welkom, <?= $_SESSION['#'] ?>!</h1>
+                            <h1 class="card-title">Welkom, <?= $_SESSION['name'] ?>!</h1>
                         </div>
                     </div>
                 </div>
