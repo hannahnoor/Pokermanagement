@@ -14,7 +14,6 @@ function login() {
 
     $email = $_POST['inputEmail'];
     $password = $_POST['inputPassword'];
-    var_dump($dbUsers);
     // Check if email exists
     $chkEmail = $conn->prepare('SELECT * FROM user WHERE Email = :email');
     $chkEmail->bindParam(':email', $email);
@@ -23,7 +22,7 @@ function login() {
 
     if($chkEmail) {
         if (!password_verify($password, $dbUsers['Password'])) {
-           // return;
+           return;
         }
         var_dump('');
         $_SESSION['id'] = $dbUsers['id'];
