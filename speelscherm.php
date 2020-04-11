@@ -62,54 +62,17 @@
         <div class="card">
           <div class="card-body">
             <h1 class="card-title">POKERTAFEL</h1>
+            <div> <img src="https://previews.123rf.com/images/jsddesign/jsddesign1412/jsddesign141200170/34750183-realistic-poker-table.jpg" alt="poker table"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
-<!--<div class="container-fluid text-center">    
-  <div class="row content">
-   <div class="col-sm-2 sidenav">-->
+
       
-      
-      <!--<div id="container">
-          <div class="row">
-              <div class="name">Player1</div><div class="score">430</div>
-          </div>
-          
-          <div class="row">
-              <div class="name">Player2</div><div class="score">580</div>
-          </div>
-          
-          <div class="row">
-              <div class="name">Player3</div><div class="score">310</div>
-          </div>
-          
-          <div class="row">
-              <div class="name">Player4</div><div class="score">640</div>
-          </div>
-          
-          <div class="row">
-              <div class="name">Player5</div><div class="score">495</div>
-          </div>
-      </div>-->
-    <!--</div>
 
-    <div class=" col-sm-8 text-left"> 
-      <h1>Welcome</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-      <hr>
-      <h3>Test</h3>
-      <img src="https://previews.123rf.com/images/jsddesign/jsddesign1412/jsddesign141200170/34750183-realistic-poker-table.jpg" alt="poker table">
-      <p>Lorem ipsum...</p>
-    </div>
-
-    <div class="col-sm-2 sidenav">
-
-<button class="open-button" onclick="openForm()">Chat</button>->
-
-<div class="chat-popup" id="myForm">
+<!--Doen we er een chat in?-->
+<!--<div class="chat-popup" id="myForm">
   <form action="/action_page.php" class="form-container">
     <h1>Chat</h1>
 
@@ -131,10 +94,6 @@ function closeForm() {
 }
 </script>-->
 
-</div>
-</div>
-</div>
-</div>
 
 </body>
 </html>
