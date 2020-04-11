@@ -1,5 +1,4 @@
 <?php
-// TODO: Straks misschien linken aan apart document
 require_once 'checkLogin.php';
 
 function joinGame($conn) {
@@ -9,7 +8,7 @@ function joinGame($conn) {
     }
 
     $inputGameCode = $_POST['inputGameCode'];
-    $playerID = 1; // $_SESSION['id']; // TODO: Test
+    $playerID = $_SESSION['id']; // TODO: Test
 
  // Check if code exists in Database
     $checkCode = $conn->prepare('SELECT * FROM tournament WHERE game_code = :code');
@@ -48,7 +47,7 @@ function startGame($conn) {
     // TODO: Make complexer game code
     $gameCode = base64_encode($gameName . '_#$_');
 
-    $userID = $userID = 1; // $_SESSION['id']; // TODO: Test
+    $userID = $_SESSION['id'];
 
     //Insert game into database
     $addTour = $conn->prepare("INSERT INTO tournament (game_code, tournament_name, admin) VALUES (:gameCode, :gameName, :admin)");
@@ -59,6 +58,8 @@ function startGame($conn) {
 
     if($addTour->execute()) {
         $_SESSION['tour_name'] = $gameName;
+        $_SESSION['tour_code'] = $gameCode;
+        
         // $_SESSION['tour_id'] = $addTour ['id']; TODO: Moet dit er nou wel in of niet?
 
         header('Location: tournamentadmin.php');
@@ -97,7 +98,7 @@ startGame($conn);
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="card-title">Welkom, <?= $_SESSION['name'] ?>!</h1>
+                            <h1 class="card-title">Welkom, <?= $_SESSION['name'] ?>! </h1>
                         </div>
                     </div>
                 </div>
@@ -108,8 +109,11 @@ startGame($conn);
                 <div class="col-4">
                     <div class="card">
                         <div class="card-body">
-                            <div>
+                            <div class="float-left">
                                 <i class="fas fa-star"></i>
+                            </div>
+                            <div class="float-right">
+                                <h2 class="card-title">Niveau</h2>
                             </div>
                         </div>
                     </div>
@@ -119,8 +123,12 @@ startGame($conn);
                 <div class="col-4">
                     <div class="card">
                         <div class="card-body">
-                            <div>
+                            <div class="float-left">
                                 <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="float-right">
+                                <!-- TODO: werkend maken -->
+                                <h2 class="card-title"> <?= $_SESSION['wonTours'] ?> </h2>
                             </div>
                         </div>
                     </div>
@@ -130,8 +138,12 @@ startGame($conn);
                 <div class="col-4">
                     <div class="card">
                         <div class="card-body">
-                            <div>
+                            <div class="float-left">
                                 <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="float-right">
+                                <!-- TODO: werkend maken -->
+                                <h2 class="card-title"> <?= $_SESSION['wonTours'] ?> </h2>
                             </div>
                         </div>
                     </div>

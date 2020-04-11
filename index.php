@@ -27,6 +27,9 @@ function login() {
         var_dump('');
         $_SESSION['id'] = $dbUsers['id'];
         $_SESSION['name'] = $dbUsers['Name'];
+        // TODO: Anders doen, klopt nog niet
+        $_SESSION['wonTours'] = $dbUsers['tournament_won'];
+        $_SESSION['wonMoney'] = $dbUsers['total_income'];
 
         header('Location: home.php');
         die();

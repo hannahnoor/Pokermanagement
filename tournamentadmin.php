@@ -1,8 +1,5 @@
 <?php
-// TODO: Straks misschien linken aan apart document
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+require_once 'checkLogin.php';
 
 function setTournament() {
     // Check if all fields are filled
