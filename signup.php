@@ -1,3 +1,54 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+function signUp() {
+    // Check if every field is filled
+    if (empty($_POST['signUpEmail']) || empty($_POST['signUpPassword']) || empty($_POST['inputName']) || empty($_POST['repeatSignUpPassword']))
+    {
+        return;
+    };
+
+    // Database connection
+    require_once ('connectDB.php');
+
+    // Variables
+    $signUpEmail = $_POST['signUpEmail'];
+    $signUpPassword = $_POST['signUpPassword'];
+    $inputName = $_POST['inputName'];
+    $repeatSignUpPassword = $_POST['repeatSignUpPassword'];
+
+    // Check email
+    $chkEmail = $conn->prepare('SELECT * FROM user WHERE Email = :email');
+    $chkEmail->bindParam(':email', $signUpEmail);
+    $chkEmail->execute();
+
+    if($chkEmail->rowCount() > 0){
+        return;
+    }
+
+    // Check repeat password
+    if ($signUpPassword !== $repeatSignUpPassword){
+        return;
+    }
+
+    // Encrypt password
+    $hashedPassword = password_hash($signUpPassword, PASSWORD_DEFAULT);
+
+    // Insert user into database
+    $insertUser = $conn->prepare("INSERT INTO user (`Email`, `Password`, `Name`) VALUES (:insEmail, :insPW, :insName)");
+    $insertUser->bindParam(':insEmail', $signUpEmail);
+    $insertUser->bindParam(':insPW', $hashedPassword);
+    $insertUser->bindParam(':insName', $inputName);
+    $insertUser->execute();
+
+    header('Location: index.php');
+    die();
+}
+signUp();
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,19 +75,19 @@
                                 <div class="textfields">
                                     <div class="form-group">
                                         <label for="signUpEmail">E-mailadres</label>
-                                        <input type="email" class="form-control" id="signUpEmail"/>
+                                        <input type="email" name="signUpEmail" class="form-control" id="signUpEmail"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="inputName">Naam</label>
-                                        <input type="text" class="form-control" id="inputName"/>
+                                        <input type="text" name="inputName" class="form-control" id="inputName"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="signUpPassword">Wachtwoord</label>
-                                        <input type="password" class="form-control" id="signUpPassword"/>
+                                        <input type="password" name="signUpPassword" class="form-control" id="signUpPassword"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="repeatSignUpPassword">Wachtwoord herhalen</label>
-                                        <input type="password" class="form-control" id="repeatSignUpPassword"/>
+                                        <input type="password" name="repeatSignUpPassword" class="form-control" id="repeatSignUpPassword"/>
                                     </div>
                                 </div>
                                     <div>
