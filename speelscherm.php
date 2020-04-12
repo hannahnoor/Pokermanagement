@@ -1,3 +1,86 @@
+<?php
+if(isset($_POST['fiches']))
+{
+    fiches();
+}
+if(isset($_POST['startbedrag']))
+{
+    startbedrag();
+}
+
+function fiches()
+{
+    include_once('connectDB.php');
+    $stmt = $conn->prepare("SELECT chip_white, chip_red, chip_green, chip_blue, chip_black FROM tournament;");
+    $stmt->execute();
+
+    echo '<div id="fichesPopup" class="modal"><div class="modal-content">';
+    echo '<div><input class="btn" type="button" onclick="closeModal()" value="x"></div>';
+    echo '<table class="table table-condensed"> <th>Wit</th> <th>Rood</th><th>Groen</th><th>Blauw</th><th>Zwart</th>';
+
+    while ($row = $stmt->fetch(PDO :: FETCH_NUM)) {
+        echo '<tr>';
+        foreach ($row as $column) {
+            echo '<td>', $column, '</td>';
+        }
+        echo '<td></tr>';
+    }
+
+    echo '</table>';
+    echo '</div></div>';
+    ?>
+    <script>
+    var modal = document.getElementById("fichesPopup");
+    modal.style.display = "block";
+
+    function closeModal()
+    {
+    var modal = document.getElementById("fichesPopup");
+    modal.style.display = "none";
+    }
+    </script>
+<?php
+
+    if(isset($_POST['close']))
+    {
+        ?><script>
+        var modal = document.getElementById("fichesPopup");
+        modal.style.display = "none";
+</script><?php
+    }
+}
+
+
+function startbedrag()
+{
+    include_once('connectDB.php');
+    $stmt = $conn->prepare("SELECT start_amount FROM tournament;");
+    $stmt->execute();
+
+    echo '<div id="bedragPopup" class="modal"><div class="modal-content">';
+    echo '<div><input class="btn" type="button" onclick="closeModal()" value="x"></div>';
+    while ($row = $stmt->fetch(PDO :: FETCH_NUM)) {
+        echo '<div>';
+        foreach ($row as $column) {
+            echo '<p>Het start bedrag is: €', $column, '</p>';
+        }
+        echo '</div>';
+    }
+    echo '</div></div >';
+
+    ?>
+    <script>
+        var modal = document.getElementById("bedragPopup");
+        modal.style.display = "block";
+
+        function closeModal() {
+            var modal = document.getElementById("bedragPopup");
+            modal.style.display = "none";
+        }
+    </script>
+    <?php
+}
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -35,16 +118,14 @@
 </head>
 
 <body class="background">
-
   <div class="container centerScreen">
     <div class="row">
       <div class="col">
         <div class="card">
           <div class="card-body">
             <div class="row">
-              <div class="col-3">
+              <div class="col-2">
                 <button class="btn" type="button" id="spelregels">Spelregels</button>
-                  <!-- HIERZO JARNO -->
                   <div id="spelregelPopup" class="modal">
                       <div class="modal-content">
                           <span class="close">&times;</span>
@@ -84,19 +165,24 @@ Dit zijn de combinaties van kaarten die je kunt maken. Ze zijn hier op volgorde 
 <b>Two pair:</b> Verschillende paren. Bij meer two pair-handen is de waarde van het hoogste paar beslissend. Is die gelijk, dan beslist de waarde van het volgende paar of van de vijfde kaart.
 <b>One pair:</b> Soms is "een paartje" genoeg om de pot te winnen. Bij gelijke combinaties beslist de hoogte van de volgende kaart.
 <b>High card:</b> Vijf verschillende kaarten zonder een combinatie. Eerst kijk je natuurlijk wie de hoogste kaart heeft. Is die gelijk dan beslist de tweede kaart, is die ook gelijk dan gaat het om de waarde van de volgende.
-
                           </pre>
                       </div>
                   </div>
-                  <!-- Einde -->
               </div>
-              <div class="col-3">
-                <button class="btn" type="button" id="fiches">Fiches</button>
+              <div class="col-2">
+                  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                      <input type="submit" value="Fiches" name="fiches" class="btn" role="button">
+                  </form>
               </div>
-              <div class="col-3">
+                <div class="col-2">
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+                        <input type="submit" value="Start bedrag" name="startbedrag" class="btn" role="button">
+                    </form>
+                </div>
+                <div class="col-2">
                 <button class="btn" type="button" id="rebuy">Rebuy</button>
               </div>
-              <div class="col-3">
+              <div class="col-2">
                 <button class="btn" type="button" id="quit">Quit</button>
               </div>
             </div>
@@ -118,7 +204,6 @@ Dit zijn de combinaties van kaarten die je kunt maken. Ze zijn hier op volgorde 
                 <li>Player 5: 495</li>
               </ul>
             </div>
-
           </div>
         </div>
       </div>
@@ -159,6 +244,7 @@ function closeForm() {
 </script>-->
 
   <script>
+
       // Get the modal
       var modal = document.getElementById("spelregelPopup");
 
@@ -178,6 +264,21 @@ function closeForm() {
           modal.style.display = "none";
       }
 
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      }
+
+      var modalfiches = document.getElementById("fichesPopup");
+      var btnfiches = document.getElementById("fiches");
+      var spanfiches = document.getElementsByClassName("close")[0];
+
+      // When the user clicks on <span> (x), close the modal
+      spanfiches.onclick = function() {
+          modal.style.display = "none";
+      }
       // When the user clicks anywhere outside of the modal, close it
       window.onclick = function(event) {
           if (event.target == modal) {
