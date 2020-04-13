@@ -2,6 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d8c49676-abc3-45a3-b575-327d79198fb5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/images/Pokertable.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/cards/heart10.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/cards/heartace.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/cards/heartjack.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/cards/heartking.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/cards/heartqueen.pdn" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/speelschermadmin.php" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/test.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -50,7 +56,7 @@
       <workItem from="1586442051420" duration="11547000" />
       <workItem from="1586517012260" duration="5834000" />
       <workItem from="1586615827642" duration="20796000" />
-      <workItem from="1586695167583" duration="600000" />
+      <workItem from="1586695167583" duration="1148000" />
     </task>
     <servers />
   </component>
