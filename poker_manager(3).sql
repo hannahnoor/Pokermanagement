@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Gegenereerd op: 08 apr 2020 om 19:18
+-- Gegenereerd op: 13 apr 2020 om 14:56
 -- Serverversie: 8.0.19
 -- PHP-versie: 7.2.19
 
@@ -33,12 +33,13 @@ USE `poker_manager`;
 CREATE TABLE IF NOT EXISTS `participant` (
   `id` int NOT NULL AUTO_INCREMENT,
   `player_id` int NOT NULL,
-  `table_id` int NOT NULL,
-  `rebuy_amount` int NOT NULL DEFAULT '1',
+  `table_nr` int DEFAULT '0',
+  `tournament_id` int DEFAULT NULL,
+  `rebuy_amount` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `participant_player` (`player_id`),
-  KEY `participant_table` (`table_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+  KEY `participant_table` (`table_nr`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
 
@@ -55,6 +56,13 @@ CREATE TABLE IF NOT EXISTS `player_stats` (
   `total_income` float NOT NULL,
   PRIMARY KEY (`player_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `player_stats`
+--
+
+INSERT INTO `player_stats` (`player_id`, `round_won`, `round_played`, `tournament_won`, `tournament_played`, `total_income`) VALUES
+(3, 4, 10, 1, 5, 50);
 
 -- --------------------------------------------------------
 
@@ -86,9 +94,9 @@ CREATE TABLE IF NOT EXISTS `round` (
 
 CREATE TABLE IF NOT EXISTS `tournament` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `game_code` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `tournament_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `admin` int NOT NULL,
+  `game_code` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `tournament_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci DEFAULT NULL,
+  `admin` int DEFAULT NULL,
   `start_amount` int DEFAULT NULL,
   `max_rounds` int DEFAULT NULL,
   `chip_white` int DEFAULT NULL,
@@ -99,20 +107,16 @@ CREATE TABLE IF NOT EXISTS `tournament` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `game_code` (`game_code`),
   KEY `tournament_admin` (`admin`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Tabelstructuur voor tabel `tournament_table`
+-- Gegevens worden geëxporteerd voor tabel `tournament`
 --
 
-CREATE TABLE IF NOT EXISTS `tournament_table` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `tournament_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `table_tournament` (`tournament_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+INSERT INTO `tournament` (`id`, `game_code`, `tournament_name`, `admin`, `start_amount`, `max_rounds`, `chip_white`, `chip_red`, `chip_green`, `chip_blue`, `chip_black`) VALUES
+(20, 'dGVzdDNfIyRf', 'test3', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 'dGVzdDEwMF8jJF8=', 'test100', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 'dGVzdHNwZWxfIyRf', 'testspel', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -127,7 +131,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `Email` (`Email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `user`
+--
+
+INSERT INTO `user` (`id`, `Email`, `Password`, `Name`) VALUES
+(1, 'pipi@pipi.pipi', 'pipi', 'pipi'),
+(2, 'test@gmail.com', '$2y$10$rqK2MUyLURNmRq4a9iSrMOI6U2Bo/nyvumd7rvwW0rDEi0U.zZzni', 'test'),
+(3, 'test2@gmail.com', '$2y$10$ih6zWvWwUZlMzA/6ZwEQXetG5JaDu4iVQfKPtlBp1AXxBMOoe9uGq', 'test');
 
 --
 -- Beperkingen voor geëxporteerde tabellen
@@ -138,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 ALTER TABLE `participant`
   ADD CONSTRAINT `participant_player` FOREIGN KEY (`player_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `participant_table` FOREIGN KEY (`table_id`) REFERENCES `tournament_table` (`id`);
+  ADD CONSTRAINT `participant_table` FOREIGN KEY (`table_nr`) REFERENCES `tournament_table` (`id`);
 
 --
 -- Beperkingen voor tabel `round`
@@ -155,12 +168,6 @@ ALTER TABLE `round`
 --
 ALTER TABLE `tournament`
   ADD CONSTRAINT `tournament_admin` FOREIGN KEY (`admin`) REFERENCES `user` (`id`);
-
---
--- Beperkingen voor tabel `tournament_table`
---
-ALTER TABLE `tournament_table`
-  ADD CONSTRAINT `table_tournament` FOREIGN KEY (`tournament_id`) REFERENCES `tournament` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
