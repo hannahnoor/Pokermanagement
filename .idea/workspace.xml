@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d8c49676-abc3-45a3-b575-327d79198fb5" name="Default Changelist" comment="" />
+    <list default="true" id="d8c49676-abc3-45a3-b575-327d79198fb5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/assets/images/Pokertable.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/cards/heart10.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/cards/heartace.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/cards/heartjack.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/cards/heartking.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/cards/heartqueen.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/speelschermadmin.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/stylesheet.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/home.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/speelscherm.php" beforeDir="false" afterPath="$PROJECT_DIR$/speelscherm.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tournament.php" beforeDir="false" afterPath="$PROJECT_DIR$/tournament.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
