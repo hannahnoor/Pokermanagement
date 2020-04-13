@@ -1,4 +1,14 @@
 <?php
+require_once 'checkLogin.php';
+
+// TODO: Kan deze beter in tournament?
+function calcLevel() {
+
+}
+
+function spreadPlayer() {
+
+}
 if(isset($_POST['fiches']))
 {
     fiches();
@@ -119,6 +129,16 @@ function startbedrag()
 
 <body class="background">
   <div class="container centerScreen">
+      <div class="row">
+          <div class="col">
+              <div class="card">
+                  <div class="card-body">
+                      <h1 class="card-title">[Tafelniveau]</h1>
+                  </div>
+              </div>
+          </div>
+      </div>
+
     <div class="row">
       <div class="col">
         <div class="card">
@@ -130,28 +150,28 @@ function startbedrag()
                       <div class="modal-content">
                           <span class="close">&times;</span>
                           <pre>
-<b>Het doel van Poker hold’em</b>
-Het doel is om met de pocketkaarten en de deckkaarten een combinatie met een zo’n hoog mogelijke combinatie van maximaal vijf kaarten te maken.
+                            <b>Het doel van Poker hold’em</b>
+                            Het doel is om met de pocketkaarten en de deckkaarten een combinatie met een zo’n hoog mogelijke combinatie van maximaal vijf kaarten te maken.
 
-<b>Het spelverloop van poker hold’em</b>
-De small en big blind: degene die direct links van de dealer zit, moet een small blind kopen. Hoe hoog deze small blind is, wordt aan het begin van het spel bepaalt.
-De pokerspeler twee plekken naast de dealer is verplicht de big blind in te leggen. De overige spelers aan tafel hoeven niks in te leggen. Hierna begint het spel.
-De dealer deelt twee gesloten kaarten per persoon uit en legt drie gesloten kaarten op tafel neer.
+                            <b>Het spelverloop van poker hold’em</b>
+                            De small en big blind: degene die direct links van de dealer zit, moet een small blind kopen. Hoe hoog deze small blind is, wordt aan het begin van het spel bepaalt.
+                            De pokerspeler twee plekken naast de dealer is verplicht de big blind in te leggen. De overige spelers aan tafel hoeven niks in te leggen. Hierna begint het spel.
+                            De dealer deelt twee gesloten kaarten per persoon uit en legt drie gesloten kaarten op tafel neer.
 
-<b>De pre-flop:</b> iedereen mag zijn eigen kaarten bekijken. Op basis van deze kaarten kan er ingezet worden. De volgende acties zijn mogelijk: folden, checken of (re-)raisen.
-<b>De flop:</b> na de pre-flop ronde volgt de flop ronde; wat betekent dat de drie kaarten op tafel worden omgedraaid. De tweede inzetronde kan plaatsvinden en de mogelijkheden folden, checken of (re-)raisen zijn van toepassing.
-<b>De turn:</b> de vierde kaart op tafel wordt omgedraaid en kan opnieuw folden, checken of (re)-raisen)
-<b>De river:</b> de vijfde kaart wordt omgedraaid en de spelers aan tafel mogen voor de laatste keer inzetten (folden, checken en (re-) raisen.
-<b>De showdown:</b> de dealer vraagt iedereen om zijn of haar kaarten om te draaien en op basis van de hoogste kaartcombinatie wordt de winnaar bepaalt.
+                            <b>De pre-flop:</b> iedereen mag zijn eigen kaarten bekijken. Op basis van deze kaarten kan er ingezet worden. De volgende acties zijn mogelijk: folden, checken of (re-)raisen.
+                            <b>De flop:</b> na de pre-flop ronde volgt de flop ronde; wat betekent dat de drie kaarten op tafel worden omgedraaid. De tweede inzetronde kan plaatsvinden en de mogelijkheden folden, checken of (re-)raisen zijn van toepassing.
+                            <b>De turn:</b> de vierde kaart op tafel wordt omgedraaid en kan opnieuw folden, checken of (re)-raisen)
+                            <b>De river:</b> de vijfde kaart wordt omgedraaid en de spelers aan tafel mogen voor de laatste keer inzetten (folden, checken en (re-) raisen.
+                            <b>De showdown:</b> de dealer vraagt iedereen om zijn of haar kaarten om te draaien en op basis van de hoogste kaartcombinatie wordt de winnaar bepaalt.
 
-<b>De acties per speelronde Texas Hold’em</b>
-<b>Folden:</b> soms is het beter om je verliezen te nemen en eerder uit de ronde te stappen. In dit geval kun je kiezen voor folden; wat betekent dat je niet meer aan deze speelronde deelneemt.
-<b>Checken:</b> deze actie is alleen mogelijk wanneer de overige spelers de inzet niet verhoogt hebben. In dit geval kun je kiezen voor checken, wat betekent dat je niks inzet.
-<b>Raisen:</b> in dit geval verhoog je de inzet. Dit kun je doen omdat je goede kaarten hebt of omdat je wilt gaan bluffen.
-<b>Re-raisen:</b> wanneer je buurman zojuist voor raisen heeft gekozen, kun je er voor kiezen om te re-raisen. In dit geval verhoog je de inzet van je buurman.
+                            <b>De acties per speelronde Texas Hold’em</b>
+                            <b>Folden:</b> soms is het beter om je verliezen te nemen en eerder uit de ronde te stappen. In dit geval kun je kiezen voor folden; wat betekent dat je niet meer aan deze speelronde deelneemt.
+                            <b>Checken:</b> deze actie is alleen mogelijk wanneer de overige spelers de inzet niet verhoogt hebben. In dit geval kun je kiezen voor checken, wat betekent dat je niks inzet.
+                            <b>Raisen:</b> in dit geval verhoog je de inzet. Dit kun je doen omdat je goede kaarten hebt of omdat je wilt gaan bluffen.
+                            <b>Re-raisen:</b> wanneer je buurman zojuist voor raisen heeft gekozen, kun je er voor kiezen om te re-raisen. In dit geval verhoog je de inzet van je buurman.
 
-<b>Hoe win je in poker Hold’em?</b>
-Het doel van Texas Hold’em poker is om een zo’n hoog mogelijk combinatie met vijf kaarten te maken. Wanneer je de hoogste kaartencombinatie van alle overgebleven spelers aan tafel hebt, win je de speelronde.
+                            <b>Hoe win je in poker Hold’em?</b>
+                            Het doel van Texas Hold’em poker is om een zo’n hoog mogelijk combinatie met vijf kaarten te maken. Wanneer je de hoogste kaartencombinatie van alle overgebleven spelers aan tafel hebt, win je de speelronde.
 
 <b>De kaartencombinaties in poker Hold’em</b>
 Dit zijn de combinaties van kaarten die je kunt maken. Ze zijn hier op volgorde van beste naar slechtste.
@@ -165,6 +185,7 @@ Dit zijn de combinaties van kaarten die je kunt maken. Ze zijn hier op volgorde 
 <b>Two pair:</b> Verschillende paren. Bij meer two pair-handen is de waarde van het hoogste paar beslissend. Is die gelijk, dan beslist de waarde van het volgende paar of van de vijfde kaart.
 <b>One pair:</b> Soms is "een paartje" genoeg om de pot te winnen. Bij gelijke combinaties beslist de hoogte van de volgende kaart.
 <b>High card:</b> Vijf verschillende kaarten zonder een combinatie. Eerst kijk je natuurlijk wie de hoogste kaart heeft. Is die gelijk dan beslist de tweede kaart, is die ook gelijk dan gaat het om de waarde van de volgende.
+
                           </pre>
                       </div>
                   </div>
@@ -209,9 +230,79 @@ Dit zijn de combinaties van kaarten die je kunt maken. Ze zijn hier op volgorde 
       </div>
       <div class="col-9">
         <div class="card">
-          <div class="card-body">
-            <h1 class="card-title">POKERTAFEL</h1>
-            <div> <img src="https://previews.123rf.com/images/jsddesign/jsddesign1412/jsddesign141200170/34750183-realistic-poker-table.jpg" alt="poker table"></div>
+          <div class="card-body gameboard">
+              <div id="board-top">
+                  <div class="board-container">
+                      <div class="player">
+                          <i class="fas fa-user"></i>
+                          <p style="color: white;">Pipi</p>
+                      </div>
+                      <div class="player">
+                          <i class="fas fa-user"></i>
+                      </div>
+                      <div class="player">
+                          <i class="fas fa-user"></i>
+                      </div>
+                      <div class="player">
+                          <i class="fas fa-user"></i>
+                      </div>
+                      <div class="player">
+                          <i class="fas fa-user"></i>
+                      </div>
+
+                  </div>
+              </div>
+              <div id="board-bottom">
+                <div class="board-container">
+                    <div class="player">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="player">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="player">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="player">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="player">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+              </div>
+
+            <!--  <div class="player" id="player1">
+                  <i class="fas fa-user"></i>
+              </div>
+             <div class="player" id="player2">
+                  <i class="fas fa-user"></i>
+              </div>
+             <div class="player" id="player3">
+                  <i class="fas fa-user"></i>
+              </div>
+              <div class="player" id="player4">
+                  <i class="fas fa-user"></i>
+              </div>
+              <div class="player" id="player5">
+                  <i class="fas fa-user"></i>
+              </div>
+              <div class="player" id="player6">
+                  <i class="fas fa-user"></i>
+              </div>
+              <div class="player" id="player7">
+                  <i class="fas fa-user"></i>
+              </div>
+              <div class="player" id="player8">
+                  <i class="fas fa-user"></i>
+              </div>
+              <div class="player" id="player9">
+                  <i class="fas fa-user"></i>
+              </div>
+              <div class="player" id="player10">
+                  <i class="fas fa-user"></i>
+              </div>
+              </div>-->
           </div>
         </div>
       </div>

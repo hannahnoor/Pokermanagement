@@ -59,7 +59,7 @@ function startGame($conn) {
     if($addTour->execute()) {
         $_SESSION['tour_name'] = $gameName;
         $_SESSION['tour_code'] = $gameCode;
-        
+
         // $_SESSION['tour_id'] = $addTour ['id']; TODO: Moet dit er nou wel in of niet?
 
         header('Location: tournamentadmin.php');

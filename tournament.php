@@ -8,11 +8,19 @@ function getPlayers() {
     include ('connectDB.php');
     $tourID = $_SESSION['tour_id'];
     $playerID = $_POST['player_id'];
+    $playerName =
 
+    // TODO: Moet ik het misschien uit toernooi halen?
     $getPlayers = $conn->prepare('SELECT * FROM participant WHERE player_id = :player_id ');
     $getPlayers->bindParam(':player_id', $playerID);
+    $getPlayers->execute();
+    $players = $getPlayers->fetchAll();
 
+    return $players;
 
+    // TODO: Get names from table user
+    $getPlayerNames = $conn->prepare('SELECT * FROM user WHERE Name = :name');
+    $get
 };
 
 ?>
@@ -66,11 +74,14 @@ function getPlayers() {
           <div class="card-body">
             <h2 class="card-title">Deelnemers</h2>
 
-            <!--Tijdelijke lijst-->
-            <ul>
-              <p>Speler 1</p>
-              <p>Speler 2</p>
-              <p>Speler 3</p>
+            <!--TODO: Ik wil de name die hoort bij de player_id-->
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <?= $value['Name'] ?>
+                   <!-- <div class="action-buttons">
+
+                    </div>-->
+                </li>
             </ul> 
 
           </div>
