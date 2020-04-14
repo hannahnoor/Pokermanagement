@@ -4,13 +4,14 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-function getPlayers() {
-    include ('connectDB.php');
+function getPlayers()
+{
+    include('connectDB.php');
     $tourID = $_SESSION['tour_id'];
     $playerID = $_POST['player_id'];
     $playerName =
 
-    // TODO: Moet ik het misschien uit toernooi halen?
+        // TODO: Moet ik het misschien uit toernooi halen?
     $getPlayers = $conn->prepare('SELECT * FROM participant WHERE player_id = :player_id ');
     $getPlayers->bindParam(':player_id', $playerID);
     $getPlayers->execute();
@@ -20,8 +21,9 @@ function getPlayers() {
 
     // TODO: Get names from table user
     $getPlayerNames = $conn->prepare('SELECT * FROM user WHERE Name = :name');
-    $get
-};
+
+
+}
 
 ?>
 

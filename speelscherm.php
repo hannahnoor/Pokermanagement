@@ -1,14 +1,22 @@
 <?php
 require_once 'checkLogin.php';
 
-// TODO: Kan deze beter in tournament?
-function calcLevel() {
+// TODO: Maak af. Hoe je de huidige spelertafel ophaalt + andere spelers aan die tafel staat hieronder.
+// TODO: Verwerk al de gegevens waar nodig. (Tonen van spelernamen op het bord etc.)
+$tourID = 4; //$_SESSION[];\\
+$player_id = 2;  //$_SESSION[];\\
 
-}
+//$getPlayer =  SQL: SELECT * FROM participant WHERE player_id = :playerId AND tournament_id = :tourID
+// bindParam
+//$getPlayer->execute();
+//$speler = $getPlayer->fetch();
 
-function spreadPlayer() {
+// $getOtherPlayers = SQL: SELECT * FROM participant WHERE table_nr = :tableNr AND tournament_id = :tourID
+// bindParam
+//$getOtherPlayers->execute();
+//$andereSpelers = $getOtherPlayers->fetchAll();
 
-}
+
 if(isset($_POST['fiches']))
 {
     fiches();

@@ -10,7 +10,7 @@ function setTournament() {
 
     require_once('connectDB.php');
 
-    // TODO: Hij maakt nu een apart toernooi aan voor alleen deze waarden, hoe krijg ik dit bij de goede? (Misschien  met WHERE (nee dus reeeeeee))
+
     $inputStartAmount = $_POST['startAmount'];
     $inputRoundAmount = $_POST['rounds'];
     $valueWhiteChip = $_POST['whiteChip'];
@@ -18,7 +18,7 @@ function setTournament() {
     $valueGreenChip = $_POST['greenChip'];
     $valueBlueChip = $_POST['blueChip'];
     $valueBlackChip = $_POST['blackChip'];
-    $tourID = 18; // $_SESSION['tour_id']; // TODO: aanpassen
+    $tourID = $_SESSION['tour_id']; // TODO: aanpassen
 
     $addSettings = $conn->prepare("UPDATE tournament SET start_amount = :startAmount, max_rounds = :maxRounds, chip_white = :valueWhite, chip_red = :valueRed, chip_green = :valueGreen, chip_blue = :valueBlue, chip_black = :valueBlack WHERE id = :id");
 
@@ -41,6 +41,7 @@ function setTournament() {
         $_SESSION['valueBlack'] = $valueBlackChip;
 
         // TODO: Set location to speelscherm
+        // TODO: Give each player in tournament a seat at a table. See test.php calcLevel()
         header('Location: #');
         die();
     }

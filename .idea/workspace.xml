@@ -26,6 +26,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -44,6 +45,8 @@
       <workItem from="1586615827642" duration="20796000" />
       <workItem from="1586695167583" duration="1148000" />
       <workItem from="1586785087668" duration="536000" />
+      <workItem from="1586790096913" duration="36103000" />
+      <workItem from="1586861635818" duration="2278000" />
     </task>
     <servers />
   </component>
@@ -51,10 +54,18 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="183" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1586785087924">
+    <state x="461" y="162" key="SettingsEditor" timestamp="1586824080699">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="183" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586785087924" />
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586824080699" />
+    <state x="183" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1586861636285">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="183" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586861636285" />
     <state x="183" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586782500343" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586829256457">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586829256457" />
   </component>
 </project>
