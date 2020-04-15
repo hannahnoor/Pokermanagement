@@ -46,7 +46,7 @@
       <workItem from="1586695167583" duration="1148000" />
       <workItem from="1586785087668" duration="536000" />
       <workItem from="1586790096913" duration="36103000" />
-      <workItem from="1586861635818" duration="2278000" />
+      <workItem from="1586861635818" duration="32323000" />
     </task>
     <servers />
   </component>
@@ -54,15 +54,39 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="461" y="162" key="SettingsEditor" timestamp="1586824080699">
+    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1586896018991">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586824080699" />
+    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586896018991" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1586894879798">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586894879798" />
     <state x="183" y="344" key="com.intellij.ide.util.TipDialog" timestamp="1586861636285">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="183" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586861636285" />
     <state x="183" y="344" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1586782500343" />
+    <state x="-1824" y="-27" width="1893" height="1027" maximized="true" key="dock-window-1" timestamp="1586880319727">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1824" y="-27" width="1893" height="1027" maximized="true" key="dock-window-1/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586880319727" />
+    <state x="-1544" y="221" width="1893" height="1027" key="dock-window-2" timestamp="1586881643436">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1544" y="221" width="1893" height="1027" key="dock-window-2/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586881643436" />
+    <state x="-1758" y="216" width="1296" height="1012" key="dock-window-3" timestamp="1586881830972">
+      <screen x="-1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="-1758" y="216" width="1296" height="1012" key="dock-window-3/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586881830972" />
+    <state x="179" y="213" width="1077" height="1019" key="dock-window-4" timestamp="1586891256149">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="179" y="213" width="1077" height="1019" key="dock-window-4/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586891256149" />
+    <state x="656" y="118" width="607" height="804" key="find.popup" timestamp="1586889193323">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="656" y="118" width="607" height="804" key="find.popup/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1586889193323" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586829256457">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

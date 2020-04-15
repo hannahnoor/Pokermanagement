@@ -4,22 +4,21 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 function signUp() {
-    // Check if every field is filled
+    // Controleer of alle velden gevuld zijn
     if (empty($_POST['signUpEmail']) || empty($_POST['signUpPassword']) || empty($_POST['inputName']) || empty($_POST['repeatSignUpPassword']))
     {
         return;
     };
 
-    // Database connection
+    // Database connectie
     require_once ('connectDB.php');
 
-    // Variables
     $signUpEmail = $_POST['signUpEmail'];
     $signUpPassword = $_POST['signUpPassword'];
     $inputName = $_POST['inputName'];
     $repeatSignUpPassword = $_POST['repeatSignUpPassword'];
 
-    // Check email
+    // Controleer of e-mail adres bestaat
     $chkEmail = $conn->prepare('SELECT * FROM user WHERE Email = :email');
     $chkEmail->bindParam(':email', $signUpEmail);
     $chkEmail->execute();
@@ -28,31 +27,39 @@ function signUp() {
         return;
     }
 
-    // Check repeat password
+    // Controleer of wachtwoorden gelijk zijn
     if ($signUpPassword !== $repeatSignUpPassword){
         return;
     }
 
-    // Encrypt password
+    // Hash wachtwoord
     $hashedPassword = password_hash($signUpPassword, PASSWORD_DEFAULT);
 
-    // Insert user into database
+    // Voeg gebruiker toe aan database
     $insertUser = $conn->prepare("INSERT INTO user (`Email`, `Password`, `Name`) VALUES (:insEmail, :insPW, :insName)");
     $insertUser->bindParam(':insEmail', $signUpEmail);
     $insertUser->bindParam(':insPW', $hashedPassword);
     $insertUser->bindParam(':insName', $inputName);
-    $insertUser->execute();
+    if($insertUser->execute()) {
+        $id = $conn->lastInsertId();
+        $insertPlayerStats = $conn->prepare("INSERT INTO player_stats (`player_id`) VALUES (:playerId)");
+        $insertPlayerStats->bindParam(':playerId', $id);
 
-    header('Location: index.php');
+        if($insertPlayerStats->execute()) {
+            header('Location: index.php');
+            die();
+        }
+    }
+
     die();
 }
+
 signUp();
 
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <!--Make responsive-->
         <meta charset="utf-8"/>
         <title>Sign up</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -62,8 +69,10 @@ signUp();
         <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css">
 
         <!--Fonts-->
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Quicksand&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Quicksand&display=swap" rel="stylesheet">
+
     </head>
+
     <body class="backgroundStart">
         <div class="container">
             <div class="row">
@@ -91,7 +100,6 @@ signUp();
                                     </div>
                                 </div>
                                     <div>
-                                        <!--Add link-->
                                     <button type="submit" class="btn btn-getstarted">Registreer</button>
                                     </div>
                             </form>

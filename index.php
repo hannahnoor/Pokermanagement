@@ -15,7 +15,7 @@ function login() {
     $email = $_POST['inputEmail'];
     $password = $_POST['inputPassword'];
     // Check if email exists
-    $chkEmail = $conn->prepare('SELECT * FROM user WHERE Email = :email');
+    $chkEmail = $conn->prepare('SELECT * FROM user INNER JOIN player_stats ON user.id = player_stats.player_id WHERE Email = :email');
     $chkEmail->bindParam(':email', $email);
     $chkEmail->execute();
     $dbUsers = $chkEmail->fetch();
@@ -27,7 +27,6 @@ function login() {
         var_dump('');
         $_SESSION['id'] = $dbUsers['id'];
         $_SESSION['name'] = $dbUsers['Name'];
-        // TODO: Anders doen, klopt nog niet
         $_SESSION['wonTours'] = $dbUsers['tournament_won'];
         $_SESSION['wonMoney'] = $dbUsers['total_income'];
 

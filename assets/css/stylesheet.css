@@ -118,7 +118,7 @@ a:hover {
 }
 
 /*SPEELSCHERM*/
-#spelregels, #fiches, #rebuy, #quit {
+#spelregels, #fiches, #rebuy, #quit, #startbedrag {
     background-color: white;
     color: black;
     margin-left: 20px;
@@ -214,21 +214,56 @@ a:hover {
     margin-top: 120px;
     margin-left: 100px;
 }
-    
-/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-/*.row.content {
-    height: 450px;
+
+/*SPEELSCHERM ADMIN*/
+.gameboard-admin {
+    background-image: url("../images/Pokertable.jpeg");
+    box-shadow: inset 0px 0px 50px 15px rgba(0,0,0,0.75);
+    height: 250px;
 }
 
-    
-/* On small screens, set height to 'auto' for sidenav and grid */
-/*@media screen and (max-width: 767px) {
-    .sidenav {
-    height: auto;
-    padding: 15px;
+.player-admin {
+    height: 5px;
+    width: 5px;
+    float: left;
+    margin: 25px;
+
 }
 
+.player-admin i {
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+}
 
+.gameboard-admin #board-top {
+    width: 100%;
+    height: 180px;
+    margin-top: -30px;
+}
+
+.gameboard-admin #board-bottom {
+    width: 100%;
+    height: 180px;
+    margin-top: auto;
+}
+/* MODAL */
+.modal {
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+/* Modal Inhoud */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}sh
 
 /*EINDSCHERM*/
 

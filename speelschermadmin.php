@@ -1,3 +1,6 @@
+<?php
+require_once 'checkLogin.php';
+?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -5,33 +8,19 @@
     <!--Make responsive-->
     <meta charset="utf-8"/>
     <title>Speelscherm</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/7dd5b04b57.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css">
-
-    <style>
-        /* Modal (Achtergrond) */
-        .modal {
-            position: fixed;
-            z-index: 1;
-            padding-top: 100px;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-        }
-        /* Modal Inhoud */
-        .modal-content {
-            background-color: #fefefe;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-    </style>
 </head>
 
 <body class="background">
@@ -41,7 +30,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="card-title">[Tafelniveau]</h1>
+                    <h1 class="card-title"><?= $_SESSION['tour_name'] ?></h1>
                 </div>
             </div>
         </div>
@@ -114,42 +103,41 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-3">
+        <div class="col-4">
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">Players</h3>
                     <div>
                         <ul>
-                            <li>Player 1: 430</li>
-                            <li>Player 2: 580</li>
-                            <li>Player 3: 310</li>
-                            <li>Player 4: 640</li>
-                            <li>Player 5: 495</li>
+                            <li>Player 1: 5 rondes</li>
+                            <li>Player 2: 4 rondes</li>
+                            <li>Player 3: 3 rondes</li>
+                            <li>Player 4: 2 rondes</li>
+                            <li>Player 5: 1 ronde</li>
                         </ul>
                     </div>
 
                 </div>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-4">
             <div class="card">
-                <div class="card-body gameboard">
+                <div class="card-body gameboard-admin">
                     <div id="board-top">
                         <div class="board-container">
-                            <div class="player">
-                                <i class="fas fa-user"></i>
-                                <p style="color: white;">Pipi</p>
-                            </div>
-                            <div class="player">
+                            <div class="player-admin">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <div class="player">
+                            <div class="player-admin">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <div class="player">
+                            <div class="player-admin">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <div class="player">
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
                                 <i class="fas fa-user"></i>
                             </div>
 
@@ -157,85 +145,122 @@
                     </div>
                     <div id="board-bottom">
                         <div class="board-container">
-                            <div class="player">
+                            <div class="player-admin">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <div class="player">
+                            <div class="player-admin">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <div class="player">
+                            <div class="player-admin">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <div class="player">
+                            <div class="player-admin">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <div class="player">
+                            <div class="player-admin">
                                 <i class="fas fa-user"></i>
                             </div>
                         </div>
                     </div>
 
-                    <!--  <div class="player" id="player1">
-                          <i class="fas fa-user"></i>
-                      </div>
-                     <div class="player" id="player2">
-                          <i class="fas fa-user"></i>
-                      </div>
-                     <div class="player" id="player3">
-                          <i class="fas fa-user"></i>
-                      </div>
-                      <div class="player" id="player4">
-                          <i class="fas fa-user"></i>
-                      </div>
-                      <div class="player" id="player5">
-                          <i class="fas fa-user"></i>
-                      </div>
-                      <div class="player" id="player6">
-                          <i class="fas fa-user"></i>
-                      </div>
-                      <div class="player" id="player7">
-                          <i class="fas fa-user"></i>
-                      </div>
-                      <div class="player" id="player8">
-                          <i class="fas fa-user"></i>
-                      </div>
-                      <div class="player" id="player9">
-                          <i class="fas fa-user"></i>
-                      </div>
-                      <div class="player" id="player10">
-                          <i class="fas fa-user"></i>
-                      </div>
-                      </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body gameboard-admin">
+                    <div id="board-top">
+                        <div class="board-container">
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="board-bottom">
+                        <div class="board-container">
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-4 offset-4">
+            <div class="card">
+                <div class="card-body gameboard-admin">
+                    <div id="board-top">
+                        <div class="board-container">
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="board-bottom">
+                        <div class="board-container">
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="player-admin">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
-
-<!--Doen we er een chat in?-->
-<!--<div class="chat-popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
-    <h1>Chat</h1>
-
-    <label for="msg"><b>Message</b></label>
-    <textarea placeholder="Type message.." name="msg" required></textarea>
-
-    <button type="submit" class="btn">Send</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-  </form>
-</div>-->
-
-<!--<script>
-function openForm() {
-    document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-}
-</script>-->
 
 <script>
     // Get the modal
@@ -248,17 +273,17 @@ function closeForm() {
     var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks the button, open the modal
-    btn.onclick = function() {
+    btn.onclick = function () {
         modal.style.display = "block";
     }
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
+    span.onclick = function () {
         modal.style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }

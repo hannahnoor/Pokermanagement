@@ -1,35 +1,45 @@
 <?php
 require_once 'checkLogin.php';
 
-// TODO: Maak af. Hoe je de huidige spelertafel ophaalt + andere spelers aan die tafel staat hieronder.
-// TODO: Verwerk al de gegevens waar nodig. (Tonen van spelernamen op het bord etc.)
-$tourID = 4; //$_SESSION[];\\
-$player_id = 2;  //$_SESSION[];\\
-
-//$getPlayer =  SQL: SELECT * FROM participant WHERE player_id = :playerId AND tournament_id = :tourID
-// bindParam
-//$getPlayer->execute();
-//$speler = $getPlayer->fetch();
-
-// $getOtherPlayers = SQL: SELECT * FROM participant WHERE table_nr = :tableNr AND tournament_id = :tourID
-// bindParam
-//$getOtherPlayers->execute();
-//$andereSpelers = $getOtherPlayers->fetchAll();
-
-
-if(isset($_POST['fiches']))
+function getPlayer()
 {
-    fiches();
+    include('connectDB.php');
+
+    $tour_id = $_SESSION['tour_id'];
+    $player_id = $_SESSION['player_id'];
+
+    // Haal de gebruiker zijn tafel_nr op voor het tournament.
+    $getPlayer = $conn->prepare('SELECT * FROM participant WHERE player_id = :playerID AND tournament_id = :tourID');
+    $getPlayer->bindParam(':playerID', $player_id);
+    $getPlayer->bindParam(':tourID', $tour_id);
+    $getPlayer->execute();
+    $player = $getPlayer->fetch();
+
+    // Als de speler deelneemt aan een tournament kijken welke spelers nog meer meedoen aan de tafel. if($player)
+    if ($player) {
+        $getOtherPlayers = $conn->prepare('SELECT participant.*, user.Name FROM participant INNER JOIN user ON participant.player_id = user.id WHERE participant.table_nr = :tableNR AND participant.tournament_id = :tourID');
+        $getOtherPlayers->bindParam(':tableNR', $player['table_nr']);
+        $getOtherPlayers->bindParam(':tourID', $tour_id);
+        $getOtherPlayers->execute();
+        $getOtherPlayers->setFetchMode(PDO::FETCH_ASSOC);
+        $otherPlayers = $getOtherPlayers->fetchAll();
+
+        if ($otherPlayers) {
+            return $otherPlayers;
+        }
+    }
+
+    // Speler bestaat niet of er zijn geen andere spelers aan de tafel dus we hebben een lege tafel.
+    return [];
 }
-if(isset($_POST['startbedrag']))
-{
-    startbedrag();
-}
+
 
 function fiches()
 {
-    include_once('connectDB.php');
-    $stmt = $conn->prepare("SELECT chip_white, chip_red, chip_green, chip_blue, chip_black FROM tournament;");
+    include('connectDB.php');
+    $tour_id = $_SESSION['tour_id'];
+    $stmt = $conn->prepare("SELECT chip_white, chip_red, chip_green, chip_blue, chip_black FROM tournament WHERE id = :tourID");
+    $stmt->bindParam(':tourID', $tour_id);
     $stmt->execute();
 
     echo '<div id="fichesPopup" class="modal"><div class="modal-content">';
@@ -47,32 +57,34 @@ function fiches()
     echo '</table>';
     echo '</div></div>';
     ?>
+
     <script>
-    var modal = document.getElementById("fichesPopup");
-    modal.style.display = "block";
-
-    function closeModal()
-    {
-    var modal = document.getElementById("fichesPopup");
-    modal.style.display = "none";
-    }
-    </script>
-<?php
-
-    if(isset($_POST['close']))
-    {
-        ?><script>
         var modal = document.getElementById("fichesPopup");
-        modal.style.display = "none";
-</script><?php
+        modal.style.display = "block";
+
+        function closeModal() {
+            var modal = document.getElementById("fichesPopup");
+            modal.style.display = "none";
+        }
+    </script>
+    <?php
+
+    if (isset($_POST['close'])) {
+        ?>
+        <script>
+            var modal = document.getElementById("fichesPopup");
+            modal.style.display = "none";
+        </script><?php
     }
 }
 
 
 function startbedrag()
 {
-    include_once('connectDB.php');
-    $stmt = $conn->prepare("SELECT start_amount FROM tournament;");
+    include('connectDB.php');
+    $tour_id = $_SESSION['tour_id'];
+    $stmt = $conn->prepare("SELECT start_amount FROM tournament WHERE id = :tourID;");
+    $stmt->bindParam(':tourID', $tour_id);
     $stmt->execute();
 
     echo '<div id="bedragPopup" class="modal"><div class="modal-content">';
@@ -98,66 +110,63 @@ function startbedrag()
     </script>
     <?php
 }
+
+$tablePlayers = getPlayer();
+
 ?>
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <title>Speelscherm</title>
-   <!--Make responsive-->
-   <meta charset="utf-8"/>
-   <title>Speelscherm</title>
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-   <script src="https://kit.fontawesome.com/7dd5b04b57.js" crossorigin="anonymous"></script>
-   <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css">
-
-<style>
-    /* Modal (Achtergrond) */
-    .modal {
-        position: fixed;
-        z-index: 1;
-        padding-top: 100px;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.4);
-    }
-    /* Modal Inhoud */
-    .modal-content {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-    }
-</style>
+    <title>Speelscherm</title>
+    <meta charset="utf-8"/>
+    <title>Speelscherm</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7dd5b04b57.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css">
 </head>
 
 <body class="background">
-  <div class="container centerScreen">
-      <div class="row">
-          <div class="col">
-              <div class="card">
-                  <div class="card-body">
-                      <h1 class="card-title">[Tafelniveau]</h1>
-                  </div>
-              </div>
-          </div>
-      </div>
+<?php
+if (isset($_POST['fiches'])) {
+    fiches();
+}
+
+if (isset($_POST['startbedrag'])) {
+    startbedrag();
+}
+?>
+<div class="container centerScreen">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title"><?= $_SESSION['tour_name'] ?></h1>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
-      <div class="col">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-2">
-                <button class="btn" type="button" id="spelregels">Spelregels</button>
-                  <div id="spelregelPopup" class="modal">
-                      <div class="modal-content">
-                          <span class="close">&times;</span>
-                          <pre>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2">
+                            <button class="btn" type="button" id="spelregels">Spelregels</button>
+                            <div id="spelregelPopup" class="modal">
+                                <div class="modal-content">
+                                    <span class="close">&times;</span>
+                                    <pre>
                             <b>Het doel van Poker hold’em</b>
                             Het doel is om met de pocketkaarten en de deckkaarten een combinatie met een zo’n hoog mogelijke combinatie van maximaal vijf kaarten te maken.
 
@@ -195,195 +204,123 @@ Dit zijn de combinaties van kaarten die je kunt maken. Ze zijn hier op volgorde 
 <b>High card:</b> Vijf verschillende kaarten zonder een combinatie. Eerst kijk je natuurlijk wie de hoogste kaart heeft. Is die gelijk dan beslist de tweede kaart, is die ook gelijk dan gaat het om de waarde van de volgende.
 
                           </pre>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-2">
-                  <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                      <input type="submit" value="Fiches" name="fiches" class="btn" role="button">
-                  </form>
-              </div>
-                <div class="col-2">
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                        <input type="submit" value="Start bedrag" name="startbedrag" class="btn" role="button">
-                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                <input type="submit" value="Fiches" name="fiches" id="fiches" class="btn" role="button">
+                            </form>
+                        </div>
+                        <div class="col-2">
+                            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                <input type="submit" value="Start bedrag" name="startbedrag" id="startbedrag"
+                                       class="btn" role="button">
+                            </form>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn" type="button" id="rebuy">Rebuy</button>
+                        </div>
+                        <div class="col-2">
+                            <button class="btn" type="button" id="quit">Quit</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-2">
-                <button class="btn" type="button" id="rebuy">Rebuy</button>
-              </div>
-              <div class="col-2">
-                <button class="btn" type="button" id="quit">Quit</button>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
     <div class="row">
-      <div class="col-3">
-        <div class="card">
-          <div class="card-body">
-            <h3 class="card-title">Players</h3>
-            <div>
-              <ul>
-                <li>Player 1: 430</li>
-                <li>Player 2: 580</li>
-                <li>Player 3: 310</li>
-                <li>Player 4: 640</li>
-                <li>Player 5: 495</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-9">
-        <div class="card">
-          <div class="card-body gameboard">
-              <div id="board-top">
-                  <div class="board-container">
-                      <div class="player">
-                          <i class="fas fa-user"></i>
-                          <p style="color: white;">Pipi</p>
-                      </div>
-                      <div class="player">
-                          <i class="fas fa-user"></i>
-                      </div>
-                      <div class="player">
-                          <i class="fas fa-user"></i>
-                      </div>
-                      <div class="player">
-                          <i class="fas fa-user"></i>
-                      </div>
-                      <div class="player">
-                          <i class="fas fa-user"></i>
-                      </div>
-
-                  </div>
-              </div>
-              <div id="board-bottom">
-                <div class="board-container">
-                    <div class="player">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="player">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="player">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="player">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="player">
-                        <i class="fas fa-user"></i>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Players</h3>
+                    <div>
+                        <ul class="list-group">
+                            <?php foreach ($tablePlayers as $key => $value) { ?>
+                                <li class="list-group-item">
+                                    <?= $value['Name'] ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                        </ul>
                     </div>
                 </div>
-              </div>
-
-            <!--  <div class="player" id="player1">
-                  <i class="fas fa-user"></i>
-              </div>
-             <div class="player" id="player2">
-                  <i class="fas fa-user"></i>
-              </div>
-             <div class="player" id="player3">
-                  <i class="fas fa-user"></i>
-              </div>
-              <div class="player" id="player4">
-                  <i class="fas fa-user"></i>
-              </div>
-              <div class="player" id="player5">
-                  <i class="fas fa-user"></i>
-              </div>
-              <div class="player" id="player6">
-                  <i class="fas fa-user"></i>
-              </div>
-              <div class="player" id="player7">
-                  <i class="fas fa-user"></i>
-              </div>
-              <div class="player" id="player8">
-                  <i class="fas fa-user"></i>
-              </div>
-              <div class="player" id="player9">
-                  <i class="fas fa-user"></i>
-              </div>
-              <div class="player" id="player10">
-                  <i class="fas fa-user"></i>
-              </div>
-              </div>-->
-          </div>
+            </div>
         </div>
-      </div>
+        <div class="col-9">
+            <div class="card">
+                <div class="card-body gameboard">
+                    <div id="board-top">
+                        <div class="board-container">
+                            <?php foreach ($tablePlayers
+
+                            as $key => $player) {
+                            if ($key == 5) {
+                            ?>
+                        </div>
+                    </div>
+                    <div id="board-bottom">
+                        <div class="board-container">
+                            <?php
+                            }
+
+                            ?>
+                            <div class="player">
+                                <i class="fas fa-user"></i>
+                                <p style="color: white;"><?= $player['Name'] ?></p>
+                            </div>
+                            <?php
+                            } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
+<script>
 
+    // Get the modal
+    var modal = document.getElementById("spelregelPopup");
 
-<!--Doen we er een chat in?-->
-<!--<div class="chat-popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
-    <h1>Chat</h1>
+    // Get the button that opens the modal
+    var btn = document.getElementById("spelregels");
 
-    <label for="msg"><b>Message</b></label>
-    <textarea placeholder="Type message.." name="msg" required></textarea>
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
 
-    <button type="submit" class="btn">Send</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-  </form>
-</div>-->
+    // When the user clicks the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
 
-<!--<script>
-function openForm() {
-    document.getElementById("myForm").style.display = "block";
-}
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
 
-function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-}
-</script>-->
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
-  <script>
+    var modalfiches = document.getElementById("fichesPopup");
+    var btnfiches = document.getElementById("fiches");
+    var spanfiches = document.getElementsByClassName("close")[0];
 
-      // Get the modal
-      var modal = document.getElementById("spelregelPopup");
-
-      // Get the button that opens the modal
-      var btn = document.getElementById("spelregels");
-
-      // Get the <span> element that closes the modal
-      var span = document.getElementsByClassName("close")[0];
-
-      // When the user clicks the button, open the modal
-      btn.onclick = function() {
-          modal.style.display = "block";
-      }
-
-      // When the user clicks on <span> (x), close the modal
-      span.onclick = function() {
-          modal.style.display = "none";
-      }
-
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-          if (event.target == modal) {
-              modal.style.display = "none";
-          }
-      }
-
-      var modalfiches = document.getElementById("fichesPopup");
-      var btnfiches = document.getElementById("fiches");
-      var spanfiches = document.getElementsByClassName("close")[0];
-
-      // When the user clicks on <span> (x), close the modal
-      spanfiches.onclick = function() {
-          modal.style.display = "none";
-      }
-      // When the user clicks anywhere outside of the modal, close it
-      window.onclick = function(event) {
-          if (event.target == modal) {
-              modal.style.display = "none";
-          }
-      }
-  </script>
+    // When the user clicks on <span> (x), close the modal
+    spanfiches.onclick = function () {
+        modal.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
 </body>
 </html>
